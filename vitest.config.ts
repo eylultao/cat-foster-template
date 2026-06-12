@@ -7,6 +7,10 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
+    // DB-backed tests share a single SQLite file (test.db) and reset it in
+    // beforeEach; running test files in parallel races those resets. Serialize
+    // file execution so each file's resetDb()/queries don't clobber others.
+    fileParallelism: false,
     setupFiles: ["./vitest.setup.ts"],
     globalSetup: ["./vitest.global-setup.ts"],
     env: { DATABASE_URL: "file:./prisma/test.db" },
