@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Whiskers Foster Network — UI Mockup</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: "#7c3aed",
+          "primary-dark": "#6d28d9",
+          secondary: "#0ea5e9",
+          accent: "#f59e0b",
+          ink: "#1f2937",
+        },
+        fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
+      },
+    },
+  };
+</script>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+  body { font-family: "Inter", system-ui, sans-serif; color: #1f2937; }
+  .screen { display: none; }
+  .screen.active { display: block; }
+  .tab.active { background: #7c3aed; color: #fff; }
+  .cat-photo { background-size: cover; background-position: center; }
+  /* generated cat “photos” via gradients so the file works fully offline */
+  .ph1 { background: linear-gradient(135deg,#fbcfe8,#a78bfa); }
+  .ph2 { background: linear-gradient(135deg,#fde68a,#fb923c); }
+  .ph3 { background: linear-gradient(135deg,#bae6fd,#6366f1); }
+  .ph4 { background: linear-gradient(135deg,#bbf7d0,#22d3ee); }
+  .ph5 { background: linear-gradient(135deg,#fecaca,#f472b6); }
+  .ph6 { background: linear-gradient(135deg,#e9d5ff,#7c3aed); }
+</style>
+</head>
+<body class="bg-slate-50">
+
+<!-- ============ MOCKUP CHROME / SCREEN SWITCHER ============ -->
+<div class="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-4 py-3">
+    <span class="mr-2 text-sm font-bold text-primary">UI Mockup</span>
+    <button class="tab active rounded-full border px-3 py-1 text-sm" data-screen="home">Home</button>
+    <button class="tab rounded-full border px-3 py-1 text-sm" data-screen="foster">Foster Info</button>
+    <button class="tab rounded-full border px-3 py-1 text-sm" data-screen="cats">Cat Gallery</button>
+    <button class="tab rounded-full border px-3 py-1 text-sm" data-screen="detail">Cat Detail</button>
+    <button class="tab rounded-full border px-3 py-1 text-sm" data-screen="apply">Apply</button>
+    <button class="tab rounded-full border px-3 py-1 text-sm" data-screen="request">Supply Request</button>
+    <span class="mx-1 text-slate-300">|</span>
+    <button class="tab rounded-full border px-3 py-1 text-sm" data-screen="admin">Admin Dashboard</button>
+    <button class="tab rounded-full border px-3 py-1 text-sm" data-screen="chart">Cat Chart</button>
+  </div>
+</div>
+
+<!-- shared public header -->
+<template id="pub-header">
+  <header class="border-b" style="border-color:#e2e8f0">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+      <div class="flex items-center gap-2">
+        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-lg">🐾</div>
+        <span class="text-lg font-extrabold text-primary">Whiskers Foster Network</span>
+      </div>
+      <ul class="hidden gap-6 text-sm font-medium text-slate-600 md:flex">
+        <li class="hover:text-primary">Foster</li>
+        <li class="hover:text-primary">Cats</li>
+        <li class="hover:text-primary">Apply</li>
+        <li class="hover:text-primary">Supply Request</li>
+      </ul>
+      <button class="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white">Become a Foster</button>
+    </nav>
+  </header>
+</template>
+
+<template id="pub-footer">
+  <footer class="mt-20 border-t bg-white">
+    <div class="mx-auto grid max-w-6xl gap-6 px-4 py-10 md:grid-cols-3">
+      <div>
+        <p class="font-extrabold text-primary">Whiskers Foster Network</p>
+        <p class="mt-1 text-sm text-slate-500">Helping NYC cats find loving foster homes.</p>
+      </div>
+      <div class="text-sm text-slate-600">
+        <p class="font-semibold text-ink">Contact</p>
+        <p class="mt-1">📞 (555) 010-2030</p>
+        <p>✉️ hello@example.org</p>
+      </div>
+      <div class="text-sm text-slate-600">
+        <p class="font-semibold text-ink">Urgent matters</p>
+        <p class="mt-1 rounded-lg bg-amber-50 p-3 text-amber-800">Please call our main phone line — don't use the website for emergencies.</p>
+      </div>
+    </div>
+  </footer>
+</template>
+
+<main class="mx-auto max-w-6xl">
+
+  <!-- ===================== HOME ===================== -->
+  <section id="home" class="screen active">
+    <div class="pub-header"></div>
+    <!-- hero -->
+    <div class="relative overflow-hidden">
+      <div class="grid items-center gap-8 px-4 py-16 md:grid-cols-2">
+        <div>
+          <span class="inline-block rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary">Invite-only beta · NYC</span>
+          <h1 class="mt-4 text-4xl font-extrabold leading-tight text-ink md:text-5xl">
+            Fostering a cat <span class="text-primary">saves a life.</span>
+          </h1>
+          <p class="mt-4 max-w-md text-lg text-slate-600">
+            You provide a temporary, loving home. We cover medical care, supplies, and support every step of the way.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <button class="rounded-full bg-primary px-6 py-3 font-semibold text-white shadow-lg shadow-primary/30">Become a Foster</button>
+            <button class="rounded-full border-2 border-primary px-6 py-3 font-semibold text-primary">Meet the Cats →</button>
+          </div>
+          <div class="mt-8 flex gap-8 text-sm">
+            <div><p class="text-2xl font-extrabold text-primary">312</p><p class="text-slate-500">cats placed</p></div>
+            <div><p class="text-2xl font-extrabold text-primary">87</p><p class="text-slate-500">active fosters</p></div>
+            <div><p class="text-2xl font-extrabold text-primary">100%</p><p class="text-slate-500">volunteer-run</p></div>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="cat-photo ph1 aspect-[4/5] rounded-3xl shadow-2xl"></div>
+          <div class="cat-photo ph3 absolute -bottom-6 -left-6 h-32 w-32 rounded-2xl border-4 border-white shadow-xl"></div>
+          <div class="absolute -right-4 top-8 rounded-2xl border bg-white p-4 shadow-xl">
+            <p class="text-xs text-slate-500">Looking for foster</p>
+            <p class="font-bold text-ink">Mochi 🐱</p>
+            <span class="text-xs font-semibold text-green-600">● Available</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- how it works -->
+    <div class="px-4 py-12">
+      <h2 class="text-center text-2xl font-extrabold text-ink">How fostering works</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        <div class="rounded-2xl border bg-white p-6">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-xl">📝</div>
+          <h3 class="mt-4 font-bold">1. Apply</h3>
+          <p class="mt-1 text-sm text-slate-600">Fill out a short application. We review and reach out within a few days.</p>
+        </div>
+        <div class="rounded-2xl border bg-white p-6">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary/10 text-xl">🏠</div>
+          <h3 class="mt-4 font-bold">2. Welcome a cat</h3>
+          <p class="mt-1 text-sm text-slate-600">We match you with a cat and send supplies. You give them a safe space.</p>
+        </div>
+        <div class="rounded-2xl border bg-white p-6">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-xl">❤️</div>
+          <h3 class="mt-4 font-bold">3. Help them thrive</h3>
+          <p class="mt-1 text-sm text-slate-600">We cover vet care and restock supplies until they find a forever home.</p>
+        </div>
+      </div>
+    </div>
+    <div class="pub-footer"></div>
+  </section>
+
+  <!-- ===================== FOSTER INFO ===================== -->
+  <section id="foster" class="screen">
+    <div class="pub-header"></div>
+    <div class="grid gap-10 px-4 py-12 md:grid-cols-[1.4fr_1fr]">
+      <div>
+        <h1 class="text-3xl font-extrabold text-primary">Fostering</h1>
+        <p class="mt-4 max-w-prose text-lg text-slate-600">
+          Fostering saves lives. You provide a temporary home; we cover medical care and supplies.
+        </p>
+        <h2 class="mt-10 text-xl font-bold text-ink">Requirements</h2>
+        <ul class="mt-4 space-y-3">
+          <li class="flex items-start gap-3 rounded-xl border bg-white p-4"><span class="text-primary">✔</span> Be 18 or older</li>
+          <li class="flex items-start gap-3 rounded-xl border bg-white p-4"><span class="text-primary">✔</span> Provide a safe indoor space</li>
+          <li class="flex items-start gap-3 rounded-xl border bg-white p-4"><span class="text-primary">✔</span> Keep foster cats separate from resident pets initially</li>
+          <li class="flex items-start gap-3 rounded-xl border bg-white p-4"><span class="text-primary">✔</span> Bring cats to scheduled vet appointments</li>
+        </ul>
+        <button class="mt-8 rounded-full bg-primary px-6 py-3 font-semibold text-white">Apply to Foster →</button>
+      </div>
+      <aside class="h-fit rounded-2xl border bg-white p-6">
+        <p class="font-bold text-ink">We've got you covered</p>
+        <ul class="mt-4 space-y-2 text-sm text-slate-600">
+          <li>🩺 All veterinary care</li>
+          <li>🍽️ Food &amp; portion guidance</li>
+          <li>🧴 Litter, toys &amp; supplies</li>
+          <li>💊 Medication, delivered</li>
+          <li>📞 On-call support line</li>
+        </ul>
+        <div class="mt-6 rounded-xl bg-secondary/10 p-4 text-sm text-secondary">
+          Questions first? Call <b>(555) 010-2030</b>.
+        </div>
+      </aside>
+    </div>
+    <div class="pub-footer"></div>
+  </section>
+
+  <!-- ===================== CAT GALLERY ===================== -->
+  <section id="cats" class="screen">
+    <div class="pub-header"></div>
+    <div class="px-4 py-12">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-extrabold text-primary">Cats Looking for Homes</h1>
+          <p class="mt-1 text-slate-600">Browse cats currently in our care.</p>
+        </div>
+        <div class="flex gap-2 text-sm">
+          <button class="rounded-full bg-primary px-4 py-1.5 font-medium text-white">All</button>
+          <button class="rounded-full border px-4 py-1.5 font-medium text-slate-600">Available</button>
+          <button class="rounded-full border px-4 py-1.5 font-medium text-slate-600">Kittens</button>
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- card -->
+        <article class="group overflow-hidden rounded-2xl border bg-white transition hover:shadow-xl">
+          <div class="cat-photo ph1 relative h-52"><span class="absolute left-3 top-3 rounded-full bg-green-500 px-2.5 py-1 text-xs font-semibold text-white">Available</span></div>
+          <div class="p-4">
+            <div class="flex items-center justify-between"><h3 class="text-lg font-bold">Mochi</h3><span>🐱</span></div>
+            <p class="text-sm text-slate-500">DSH · 2 years · Female</p>
+            <p class="mt-2 line-clamp-2 text-sm text-slate-600">Sweet and curious lap cat looking for a quiet foster home.</p>
+            <button class="mt-3 text-sm font-semibold text-primary">View profile →</button>
+          </div>
+        </article>
+        <article class="group overflow-hidden rounded-2xl border bg-white transition hover:shadow-xl">
+          <div class="cat-photo ph2 relative h-52"><span class="absolute left-3 top-3 rounded-full bg-green-500 px-2.5 py-1 text-xs font-semibold text-white">Available</span></div>
+          <div class="p-4">
+            <div class="flex items-center justify-between"><h3 class="text-lg font-bold">Biscuit</h3><span>🐱</span></div>
+            <p class="text-sm text-slate-500">Tabby · 8 months · Male</p>
+            <p class="mt-2 line-clamp-2 text-sm text-slate-600">Playful kitten who loves feather wands and zoomies.</p>
+            <button class="mt-3 text-sm font-semibold text-primary">View profile →</button>
+          </div>
+        </article>
+        <article class="group overflow-hidden rounded-2xl border bg-white transition hover:shadow-xl">
+          <div class="cat-photo ph3 relative h-52"><span class="absolute left-3 top-3 rounded-full bg-amber-500 px-2.5 py-1 text-xs font-semibold text-white">Pending</span></div>
+          <div class="p-4">
+            <div class="flex items-center justify-between"><h3 class="text-lg font-bold">Shadow</h3><span>🐱</span></div>
+            <p class="text-sm text-slate-500">Black DMH · 4 years · Male</p>
+            <p class="mt-2 line-clamp-2 text-sm text-slate-600">Gentle senior, great with calm households.</p>
+            <button class="mt-3 text-sm font-semibold text-primary">View profile →</button>
+          </div>
+        </article>
+        <article class="group overflow-hidden rounded-2xl border bg-white transition hover:shadow-xl">
+          <div class="cat-photo ph4 relative h-52"><span class="absolute left-3 top-3 rounded-full bg-green-500 px-2.5 py-1 text-xs font-semibold text-white">Available</span></div>
+          <div class="p-4">
+            <div class="flex items-center justify-between"><h3 class="text-lg font-bold">Pepper</h3><span>🐱</span></div>
+            <p class="text-sm text-slate-500">Calico · 1 year · Female</p>
+            <p class="mt-2 line-clamp-2 text-sm text-slate-600">Affectionate and great with other cats.</p>
+            <button class="mt-3 text-sm font-semibold text-primary">View profile →</button>
+          </div>
+        </article>
+        <article class="group overflow-hidden rounded-2xl border bg-white transition hover:shadow-xl">
+          <div class="cat-photo ph5 relative h-52"><span class="absolute left-3 top-3 rounded-full bg-green-500 px-2.5 py-1 text-xs font-semibold text-white">Available</span></div>
+          <div class="p-4">
+            <div class="flex items-center justify-between"><h3 class="text-lg font-bold">Luna</h3><span>🐱</span></div>
+            <p class="text-sm text-slate-500">Siamese mix · 3 years · Female</p>
+            <p class="mt-2 line-clamp-2 text-sm text-slate-600">Talkative cuddler who follows you room to room.</p>
+            <button class="mt-3 text-sm font-semibold text-primary">View profile →</button>
+          </div>
+        </article>
+        <article class="group overflow-hidden rounded-2xl border bg-white transition hover:shadow-xl">
+          <div class="cat-photo ph6 relative h-52"><span class="absolute left-3 top-3 rounded-full bg-green-500 px-2.5 py-1 text-xs font-semibold text-white">Available</span></div>
+          <div class="p-4">
+            <div class="flex items-center justify-between"><h3 class="text-lg font-bold">Tofu</h3><span>🐱</span></div>
+            <p class="text-sm text-slate-500">White DSH · 6 months · Male</p>
+            <p class="mt-2 line-clamp-2 text-sm text-slate-600">Bottle-baby graduate, bursting with energy.</p>
+            <button class="mt-3 text-sm font-semibold text-primary">View profile →</button>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="pub-footer"></div>
+  </section>
+
+  <!-- ===================== CAT DETAIL ===================== -->
+  <section id="detail" class="screen">
+    <div class="pub-header"></div>
+    <div class="px-4 py-10">
+      <p class="text-sm text-slate-500">Cats / <span class="text-ink">Mochi</span></p>
+      <div class="mt-4 grid gap-8 md:grid-cols-2">
+        <div>
+          <div class="cat-photo ph1 aspect-square rounded-3xl shadow-xl"></div>
+          <div class="mt-3 grid grid-cols-4 gap-3">
+            <div class="cat-photo ph1 h-20 rounded-xl ring-2 ring-primary"></div>
+            <div class="cat-photo ph6 h-20 rounded-xl"></div>
+            <div class="cat-photo ph3 h-20 rounded-xl"></div>
+            <div class="cat-photo ph4 h-20 rounded-xl"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-3">
+            <h1 class="text-4xl font-extrabold text-ink">Mochi</h1>
+            <span class="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">● Available</span>
+          </div>
+          <p class="mt-2 text-slate-500">DSH · 2 years · Female</p>
+
+          <div class="mt-6 flex flex-wrap gap-2">
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-sm">😻 Lap cat</span>
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-sm">🧶 Playful</span>
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-sm">🏠 Indoor only</span>
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-sm">🐈 Good with cats</span>
+          </div>
+
+          <p class="mt-6 max-w-prose leading-relaxed text-slate-700">
+            Sweet and curious lap cat looking for a quiet foster home. Mochi greets everyone at the door,
+            naps in sunbeams, and is fully litter-trained. She'd do best in a calm household where she can
+            settle in at her own pace.
+          </p>
+
+          <div class="mt-8 flex gap-3">
+            <button class="rounded-full bg-primary px-6 py-3 font-semibold text-white shadow-lg shadow-primary/30">Apply to Foster Mochi</button>
+            <button class="rounded-full border-2 border-slate-200 px-6 py-3 font-semibold text-slate-600">♡ Save</button>
+          </div>
+          <div class="mt-6 rounded-xl bg-secondary/10 p-4 text-sm text-secondary">
+            Questions about Mochi? Call us at <b>(555) 010-2030</b>.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pub-footer"></div>
+  </section>
+
+  <!-- ===================== APPLY ===================== -->
+  <section id="apply" class="screen">
+    <div class="pub-header"></div>
+    <div class="mx-auto max-w-2xl px-4 py-12">
+      <h1 class="text-3xl font-extrabold text-primary">Foster Application</h1>
+      <p class="mt-2 text-slate-600">Tell us a bit about you and your home.</p>
+
+      <div class="mt-8 space-y-5 rounded-2xl border bg-white p-6 shadow-sm">
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="block"><span class="text-sm font-medium">Your name *</span>
+            <input class="mt-1 w-full rounded-lg border-slate-300 px-3 py-2 ring-primary/30 focus:ring" placeholder="Jane Doe" /></label>
+          <label class="block"><span class="text-sm font-medium">Email *</span>
+            <input class="mt-1 w-full rounded-lg border-slate-300 px-3 py-2" placeholder="jane@email.com" /></label>
+          <label class="block"><span class="text-sm font-medium">Phone</span>
+            <input class="mt-1 w-full rounded-lg border-slate-300 px-3 py-2" placeholder="(555) 000-0000" /></label>
+          <label class="block"><span class="text-sm font-medium">Address</span>
+            <input class="mt-1 w-full rounded-lg border-slate-300 px-3 py-2" placeholder="Brooklyn, NY" /></label>
+        </div>
+
+        <div class="rounded-xl bg-slate-50 p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Questions from org.config.ts</p>
+
+          <label class="mt-3 block"><span class="text-sm font-medium">Do you rent or own? *</span>
+            <select class="mt-1 w-full rounded-lg border-slate-300 px-3 py-2"><option>Select…</option><option>Rent</option><option>Own</option></select></label>
+
+          <label class="mt-3 block"><span class="text-sm font-medium">If renting, does your landlord allow pets?</span>
+            <select class="mt-1 w-full rounded-lg border-slate-300 px-3 py-2"><option>Select…</option><option>Yes</option><option>No</option><option>N/A</option></select></label>
+
+          <label class="mt-3 block"><span class="text-sm font-medium">What other pets do you have?</span>
+            <textarea class="mt-1 w-full rounded-lg border-slate-300 px-3 py-2" rows="2" placeholder="One senior dog, very gentle…"></textarea></label>
+
+          <label class="mt-3 flex items-center gap-2"><input type="checkbox" class="rounded text-primary" /><span class="text-sm">I can provide a separate room if needed</span></label>
+        </div>
+
+        <button class="w-full rounded-full bg-primary px-6 py-3 font-semibold text-white">Submit application</button>
+        <p class="text-center text-xs text-slate-400">Submissions go to staff for review before approval.</p>
+      </div>
+    </div>
+    <div class="pub-footer"></div>
+  </section>
+
+  <!-- ===================== SUPPLY REQUEST ===================== -->
+  <section id="request" class="screen">
+    <div class="pub-header"></div>
+    <div class="mx-auto max-w-2xl px-4 py-12">
+      <h1 class="text-3xl font-extrabold text-primary">Foster Supply Request</h1>
+      <p class="mt-2 text-slate-600">Need food, litter, medication, or toys? Let us know.</p>
+      <div class="mt-4 rounded-xl bg-amber-50 p-3 text-sm text-amber-800">⚠️ For urgent matters, please call our main line — don't use this form.</div>
+
+      <div class="mt-6 space-y-5 rounded-2xl border bg-white p-6 shadow-sm">
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="block"><span class="text-sm font-medium">Your name</span>
+            <input class="mt-1 w-full rounded-lg border-slate-300 px-3 py-2" placeholder="Jane Doe" /></label>
+          <label class="block"><span class="text-sm font-medium">For which cat? (optional)</span>
+            <select class="mt-1 w-full rounded-lg border-slate-300 px-3 py-2"><option>—</option><option>Mochi</option><option>Biscuit</option></select></label>
+        </div>
+
+        <fieldset class="rounded-xl border p-4">
+          <legend class="px-1 text-sm font-semibold">Items</legend>
+          <div class="mt-2 flex items-center gap-2">
+            <select class="rounded-lg border-slate-300 px-3 py-2"><option>Food</option><option>Litter</option><option>Medication</option><option>Toys</option></select>
+            <input type="number" value="2" class="w-20 rounded-lg border-slate-300 px-3 py-2" />
+            <span class="text-xs text-slate-400">qty</span>
+          </div>
+          <div class="mt-2 flex items-center gap-2">
+            <select class="rounded-lg border-slate-300 px-3 py-2"><option>Litter</option><option>Food</option><option>Medication</option><option>Toys</option></select>
+            <input type="number" value="1" class="w-20 rounded-lg border-slate-300 px-3 py-2" />
+            <button class="text-sm text-red-500">Remove</button>
+          </div>
+          <button class="mt-3 text-sm font-medium text-primary">+ Add item</button>
+        </fieldset>
+
+        <label class="block"><span class="text-sm font-medium">Notes</span>
+          <textarea class="mt-1 w-full rounded-lg border-slate-300 px-3 py-2" rows="2" placeholder="Running low — out by Friday."></textarea></label>
+
+        <button class="w-full rounded-full bg-primary px-6 py-3 font-semibold text-white">Submit request</button>
+      </div>
+    </div>
+    <div class="pub-footer"></div>
+  </section>
+
+  <!-- ===================== ADMIN DASHBOARD ===================== -->
+  <section id="admin" class="screen">
+    <div class="flex min-h-[80vh] bg-white">
+      <!-- sidebar -->
+      <aside class="hidden w-60 shrink-0 border-r bg-slate-50 p-5 md:block">
+        <div class="flex items-center gap-2"><div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm">🐾</div><span class="font-bold text-primary">Back Office</span></div>
+        <nav class="mt-6 space-y-1 text-sm">
+          <a class="flex items-center gap-2 rounded-lg bg-primary px-3 py-2 font-medium text-white">📊 Dashboard</a>
+          <a class="flex items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100">🐱 Cats</a>
+          <a class="flex items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100">📝 Applications <span class="ml-auto rounded-full bg-accent px-2 text-xs font-bold text-white">3</span></a>
+          <a class="flex items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100">📦 Supply Requests <span class="ml-auto rounded-full bg-secondary px-2 text-xs font-bold text-white">2</span></a>
+          <a class="flex items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100">👤 Foster Parents</a>
+        </nav>
+        <div class="mt-8 border-t pt-4 text-sm text-slate-500">
+          <p class="font-medium text-ink">Org Admin</p>
+          <button class="mt-1 text-primary underline">Sign out</button>
+        </div>
+      </aside>
+
+      <!-- content -->
+      <div class="flex-1 p-6">
+        <h1 class="text-2xl font-extrabold text-ink">Dashboard</h1>
+        <p class="text-sm text-slate-500">Tuesday, June 11 · everything that needs your attention.</p>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-2xl border bg-gradient-to-br from-primary to-primary-dark p-5 text-white">
+            <p class="text-3xl font-extrabold">3</p><p class="text-sm opacity-90">New applications</p>
+          </div>
+          <div class="rounded-2xl border p-5"><p class="text-3xl font-extrabold text-secondary">2</p><p class="text-sm text-slate-500">Open supply requests</p></div>
+          <div class="rounded-2xl border p-5"><p class="text-3xl font-extrabold text-ink">14</p><p class="text-sm text-slate-500">Cats in care</p></div>
+          <div class="rounded-2xl border p-5"><p class="text-3xl font-extrabold text-ink">5</p><p class="text-sm text-slate-500">Vet appts this week</p></div>
+        </div>
+
+        <div class="mt-8 grid gap-6 lg:grid-cols-2">
+          <div class="rounded-2xl border">
+            <div class="flex items-center justify-between border-b p-4"><h2 class="font-bold">Recent applications</h2><a class="text-sm text-primary">View all →</a></div>
+            <ul class="divide-y text-sm">
+              <li class="flex items-center justify-between p-4"><div><p class="font-medium">Jane Doe</p><p class="text-slate-500">jane@email.com · 2h ago</p></div><span class="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-semibold text-blue-700">new</span></li>
+              <li class="flex items-center justify-between p-4"><div><p class="font-medium">Marcus Lee</p><p class="text-slate-500">marcus@email.com · 5h ago</p></div><span class="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-semibold text-blue-700">new</span></li>
+              <li class="flex items-center justify-between p-4"><div><p class="font-medium">Priya Shah</p><p class="text-slate-500">priya@email.com · 1d ago</p></div><span class="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-700">reviewing</span></li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border">
+            <div class="flex items-center justify-between border-b p-4"><h2 class="font-bold">Open supply requests</h2><a class="text-sm text-primary">View all →</a></div>
+            <ul class="divide-y text-sm">
+              <li class="flex items-center justify-between p-4"><div><p class="font-medium">Pat (for Mochi)</p><p class="text-slate-500">2× Food, 1× Litter</p></div><span class="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-semibold text-blue-700">new</span></li>
+              <li class="flex items-center justify-between p-4"><div><p class="font-medium">Sam (for Biscuit)</p><p class="text-slate-500">1× Medication</p></div><span class="rounded-full bg-purple-100 px-2.5 py-1 text-xs font-semibold text-purple-700">in progress</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CAT CHART (ADMIN) ===================== -->
+  <section id="chart" class="screen">
+    <div class="flex min-h-[80vh] bg-white">
+      <aside class="hidden w-60 shrink-0 border-r bg-slate-50 p-5 md:block">
+        <div class="flex items-center gap-2"><div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm">🐾</div><span class="font-bold text-primary">Back Office</span></div>
+        <nav class="mt-6 space-y-1 text-sm">
+          <a class="flex items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100">📊 Dashboard</a>
+          <a class="flex items-center gap-2 rounded-lg bg-primary px-3 py-2 font-medium text-white">🐱 Cats</a>
+          <a class="flex items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100">📝 Applications</a>
+          <a class="flex items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100">📦 Supply Requests</a>
+          <a class="flex items-center gap-2 rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100">👤 Foster Parents</a>
+        </nav>
+      </aside>
+
+      <div class="flex-1 p-6">
+        <p class="text-sm text-slate-500">Cats / <span class="text-ink">Mochi</span></p>
+        <div class="mt-2 flex flex-wrap items-center gap-3">
+          <div class="cat-photo ph1 h-16 w-16 rounded-2xl"></div>
+          <div>
+            <h1 class="text-2xl font-extrabold text-ink">Mochi</h1>
+            <p class="text-sm text-slate-500">Chart · intake 2026-03-02</p>
+          </div>
+          <span class="ml-auto rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">Available</span>
+        </div>
+
+        <div class="mt-6 grid gap-6 lg:grid-cols-[1fr_1.2fr]">
+          <!-- editable fields -->
+          <div class="space-y-4 rounded-2xl border p-5">
+            <h2 class="font-bold">Profile &amp; care</h2>
+            <div class="grid grid-cols-2 gap-3 text-sm">
+              <label>Status<select class="mt-1 w-full rounded-lg border-slate-300 px-2 py-1.5"><option>available</option><option>pending</option><option>adopted</option><option>not_listed</option></select></label>
+              <label>Foster parent<select class="mt-1 w-full rounded-lg border-slate-300 px-2 py-1.5"><option>Pat Rivera</option><option>— none —</option></select></label>
+              <label>Breed<input value="DSH" class="mt-1 w-full rounded-lg border-slate-300 px-2 py-1.5" /></label>
+              <label>Age<input value="2 years" class="mt-1 w-full rounded-lg border-slate-300 px-2 py-1.5" /></label>
+              <label>Food type<input value="Wet, chicken" class="mt-1 w-full rounded-lg border-slate-300 px-2 py-1.5" /></label>
+              <label>Portion<input value="½ can 2×/day" class="mt-1 w-full rounded-lg border-slate-300 px-2 py-1.5" /></label>
+            </div>
+            <label class="block text-sm">Behavior notes<textarea rows="2" class="mt-1 w-full rounded-lg border-slate-300 px-2 py-1.5">Shy first day, warms up fast. Loves window perches.</textarea></label>
+            <button class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white">Save chart</button>
+          </div>
+
+          <!-- chart records -->
+          <div class="space-y-5">
+            <div class="rounded-2xl border p-5">
+              <h2 class="font-bold">🩺 Medical records</h2>
+              <ul class="mt-3 space-y-2 text-sm">
+                <li class="flex justify-between rounded-lg bg-slate-50 px-3 py-2"><span><b>Vaccination</b> — FVRCP <span class="text-slate-400">· Dr. Lee</span></span><span class="text-slate-400">Jan 15</span></li>
+                <li class="flex justify-between rounded-lg bg-slate-50 px-3 py-2"><span><b>Spay</b> — recovered well</span><span class="text-slate-400">Mar 04</span></li>
+              </ul>
+            </div>
+            <div class="rounded-2xl border p-5">
+              <h2 class="font-bold">📅 Vet appointments</h2>
+              <ul class="mt-3 space-y-2 text-sm">
+                <li class="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2"><span>Jun 18, 9:30 — Dental check @ City Vet</span><span class="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-700">scheduled</span></li>
+                <li class="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2"><span>Mar 04 — Spay surgery</span><span class="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">completed</span></li>
+              </ul>
+            </div>
+            <div class="rounded-2xl border p-5">
+              <h2 class="font-bold">💊 Medications</h2>
+              <ul class="mt-3 space-y-2 text-sm">
+                <li class="flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2"><span><b>Amoxicillin</b> 50mg · 2×/day</span><span class="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">active</span></li>
+                <li class="flex items-center justify-between rounded-lg px-3 py-2 text-slate-400 line-through"><span>Gabapentin 25mg</span><span class="text-xs">inactive</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // hydrate shared header/footer templates
+  const header = document.getElementById("pub-header").innerHTML;
+  const footer = document.getElementById("pub-footer").innerHTML;
+  document.querySelectorAll(".pub-header").forEach((n) => (n.innerHTML = header));
+  document.querySelectorAll(".pub-footer").forEach((n) => (n.innerHTML = footer));
+
+  // screen switcher
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach((tab) =>
+    tab.addEventListener("click", () => {
+      tabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+      document.getElementById(tab.dataset.screen).classList.add("active");
+      window.scrollTo({ top: 0 });
+    })
+  );
+</script>
+</body>
+</html>
