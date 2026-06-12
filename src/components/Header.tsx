@@ -18,7 +18,7 @@ export function Header() {
         <ul className="flex gap-4">
           {links.map((l) => (
             <li key={l.href}>
-              <Link href={l.href} className="hover:underline">{l.label}</Link>
+              <Link href={l.href} className="inline-block px-3 py-2.5 hover:underline">{l.label}</Link>
             </li>
           ))}
         </ul>
