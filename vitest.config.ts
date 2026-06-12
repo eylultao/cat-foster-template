@@ -12,6 +12,10 @@ export default defineConfig({
     env: { DATABASE_URL: "file:./prisma/test.db" },
   },
   resolve: {
-    alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "server-only": fileURLToPath(new URL("./src/test/empty-module.ts", import.meta.url)),
+      "client-only": fileURLToPath(new URL("./src/test/empty-module.ts", import.meta.url)),
+    },
   },
 });
