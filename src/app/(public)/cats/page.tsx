@@ -1,6 +1,9 @@
 import { getPublicCats } from "@/server/cats";
 import { CatCard } from "@/components/CatCard";
 
+// Always render fresh so newly added/edited cats appear immediately.
+export const dynamic = "force-dynamic";
+
 export default async function CatsPage() {
   const cats = await getPublicCats();
   return (
