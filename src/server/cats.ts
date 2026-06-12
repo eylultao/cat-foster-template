@@ -23,3 +23,10 @@ export async function getCatBySlug(slug: string) {
   if (!cat || cat.status === "not_listed") return null;
   return cat;
 }
+
+export async function getCatOptions() {
+  return prisma.cat.findMany({
+    select: { id: true, name: true },
+    orderBy: { name: "asc" },
+  });
+}
