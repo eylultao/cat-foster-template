@@ -1,8 +1,10 @@
-"use server";
+import "server-only";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { org } from "@/org";
+import { revalidatePath } from "@/server/revalidate";
 import { type ActionResult, fieldErrors } from "@/lib/validation";
+import { APPLICATION_STATUSES } from "./applicationConstants";
 
 const baseSchema = z.object({
   applicantName: z.string().min(1, "Your name is required"),
@@ -41,4 +43,30 @@ export async function createApplication(formData: FormData): Promise<ActionResul
     },
   });
   return { ok: true, id: created.id };
+}
+
+export async function getApplications(status?: string) {
+  return prisma.fosterApplication.findMany({
+    where: status ? { status } : undefined,
+    orderBy: { createdAt: "desc" },
+  });
+}
+
+export async function getApplicationById(id: string) {
+  return prisma.fosterApplication.findUnique({ where: { id } });
+}
+
+export async function updateApplicationStatus(id: string, status: string): Promise<ActionResult> {
+  if (!APPLICATION_STATUSES.includes(status as (typeof APPLICATION_STATUSES)[number])) {
+    return { ok: false, errors: { status: "Invalid status" } };
+  }
+  await prisma.fosterApplication.update({ where: { id }, data: { status } });
+  revalidatePath("/admin/applications");
+  return { ok: true };
+}
+
+export async function updateApplicationNotes(id: string, notes: string): Promise<ActionResult> {
+  await prisma.fosterApplication.update({ where: { id }, data: { staffNotes: notes || null } });
+  revalidatePath("/admin/applications");
+  return { ok: true };
 }

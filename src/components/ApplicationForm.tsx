@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { org } from "@/org";
-import { createApplication } from "@/server/applications";
+import { createApplication } from "@/server/applicationActions";
 import type { ActionResult } from "@/lib/validation";
 
 export function ApplicationForm() {
