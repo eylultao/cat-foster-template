@@ -85,3 +85,49 @@ export async function deleteVetAppointment(catId: string, id: string): Promise<A
   bump(catId);
   return { ok: true };
 }
+
+const medicationSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  dosage: z.string().optional().default(""),
+  schedule: z.string().optional().default(""),
+  startDate: z.string().optional().default(""),
+  endDate: z.string().optional().default(""),
+});
+
+export async function addMedication(catId: string, formData: FormData): Promise<ActionResult> {
+  const parsed = medicationSchema.safeParse({
+    name: formData.get("name"),
+    dosage: formData.get("dosage") ?? "",
+    schedule: formData.get("schedule") ?? "",
+    startDate: formData.get("startDate") ?? "",
+    endDate: formData.get("endDate") ?? "",
+  });
+  if (!parsed.success) return { ok: false, errors: fieldErrors(parsed.error) };
+  const d = parsed.data;
+  await prisma.medication.create({
+    data: {
+      catId,
+      name: d.name,
+      dosage: d.dosage || null,
+      schedule: d.schedule || null,
+      startDate: d.startDate ? new Date(d.startDate) : null,
+      endDate: d.endDate ? new Date(d.endDate) : null,
+      isActive: true,
+    },
+  });
+  bump(catId);
+  return { ok: true };
+}
+
+export async function toggleMedicationActive(catId: string, id: string): Promise<ActionResult> {
+  const med = await prisma.medication.findUniqueOrThrow({ where: { id } });
+  await prisma.medication.update({ where: { id }, data: { isActive: !med.isActive } });
+  bump(catId);
+  return { ok: true };
+}
+
+export async function deleteMedication(catId: string, id: string): Promise<ActionResult> {
+  await prisma.medication.delete({ where: { id } });
+  bump(catId);
+  return { ok: true };
+}
