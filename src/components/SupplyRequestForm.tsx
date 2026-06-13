@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { org } from "@/org";
-import { createSupplyRequest } from "@/server/requests";
+import { createSupplyRequest } from "@/server/requestActions";
 import type { ActionResult } from "@/lib/validation";
 
 type Opt = { id: string; name: string };

@@ -1,7 +1,9 @@
-"use server";
+import "server-only";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { type ActionResult, fieldErrors } from "@/lib/validation";
+import { revalidatePath } from "@/server/revalidate";
+import { REQUEST_STATUSES } from "./requestConstants";
 
 const itemSchema = z.object({
   type: z.string().min(1),
@@ -48,4 +50,21 @@ export async function createSupplyRequest(formData: FormData): Promise<ActionRes
     },
   });
   return { ok: true, id: created.id };
+}
+
+export async function getSupplyRequests(status?: string) {
+  return prisma.supplyRequest.findMany({
+    where: status ? { status } : undefined,
+    orderBy: { createdAt: "desc" },
+    include: { cat: true, fosterParent: true },
+  });
+}
+
+export async function updateRequestStatus(id: string, status: string): Promise<ActionResult> {
+  if (!REQUEST_STATUSES.includes(status as (typeof REQUEST_STATUSES)[number])) {
+    return { ok: false, errors: { status: "Invalid status" } };
+  }
+  await prisma.supplyRequest.update({ where: { id }, data: { status } });
+  revalidatePath("/admin/requests");
+  return { ok: true };
 }
