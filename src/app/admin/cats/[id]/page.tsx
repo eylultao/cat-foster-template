@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getCatById } from "@/server/cats";
 import { getFosterOptions } from "@/server/fosters";
 import { CatEditForm } from "./CatEditForm";
+import { PhotoPanel } from "./PhotoPanel";
 
 export default async function CatChartPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -15,7 +16,8 @@ export default async function CatChartPage({ params }: { params: Promise<{ id: s
         <p className="opacity-60">Chart</p>
       </div>
       <CatEditForm cat={cat} fosters={fosters} />
-      {/* Sub-record panels (photos, medical, vet, medications) are added in Tasks 25-28. */}
+      <PhotoPanel catId={cat.id} photos={cat.photos} />
+      {/* Medical, vet, medication panels are added in Tasks 26-28. */}
     </section>
   );
 }
