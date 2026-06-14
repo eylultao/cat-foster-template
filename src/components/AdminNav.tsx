@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SignOutButton } from "./SignOutButton";
+import { AdminMobileNav } from "./AdminMobileNav";
 
 const links = [
   { href: "/admin", label: "Dashboard" },
@@ -11,25 +12,26 @@ const links = [
 
 export function AdminNav() {
   return (
-    <aside className="w-full shrink-0 border-b p-4 md:w-56 md:border-b-0 md:border-r">
-      <p className="mb-3 font-bold md:mb-4" style={{ color: "var(--color-primary)" }}>
-        Back Office
-      </p>
-      {/* Mobile: horizontal scrolling row of nav chips. Desktop: vertical list. */}
-      <nav className="flex gap-2 overflow-x-auto pb-1 md:flex-col md:gap-0 md:space-y-2 md:overflow-visible md:pb-0">
-        {links.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            className="whitespace-nowrap rounded border px-3 py-2 hover:underline md:border-0 md:px-0 md:py-1"
-          >
-            {l.label}
-          </Link>
-        ))}
-      </nav>
-      <div className="mt-4 md:mt-6">
-        <SignOutButton />
-      </div>
-    </aside>
+    <>
+      {/* Desktop: persistent left sidebar */}
+      <aside className="hidden w-56 shrink-0 border-r p-4 md:block">
+        <p className="mb-4 font-bold" style={{ color: "var(--color-primary)" }}>
+          Back Office
+        </p>
+        <nav className="space-y-2">
+          {links.map((l) => (
+            <Link key={l.href} href={l.href} className="block py-1 hover:underline">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="mt-6">
+          <SignOutButton />
+        </div>
+      </aside>
+
+      {/* Mobile: hamburger top bar + slide-out drawer */}
+      <AdminMobileNav links={links} signOut={<SignOutButton />} />
+    </>
   );
 }
