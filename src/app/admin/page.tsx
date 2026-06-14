@@ -6,7 +6,7 @@ export default async function AdminDashboard() {
   return (
     <section>
       <h1 className="text-2xl font-bold" style={{ color: "var(--color-primary)" }}>Dashboard</h1>
-      <div className="mt-6 grid grid-cols-2 gap-4">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Link href="/admin/applications" className="rounded-lg border p-6">
           <p className="text-3xl font-bold">{s.newApplications}</p>
           <p className="opacity-70">New applications</p>
