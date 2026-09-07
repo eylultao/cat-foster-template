@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/*
+ * Map Tailwind color utilities (bg-primary, text-accent, …) to runtime CSS
+ * variables. The LHS token and RHS var() share a name ON PURPOSE: `inline`
+ * makes Tailwind emit `var(--color-primary)` inline at each use site WITHOUT
+ * re-declaring the property, so the value comes from whatever <ThemeStyle>
+ * injects into :root from org.config.ts. Do NOT "simplify" these lines —
+ * removing them drops the theme tokens and breaks per-org theming.
+ */
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-bg: var(--color-bg);
+  --color-fg: var(--color-fg);
+}
+
+/* Fallbacks (org.config defaults) so the page degrades gracefully if
+   ThemeStyle is ever absent; ThemeStyle overrides these via :root at runtime. */
+body {
+  background-color: var(--color-bg, #ffffff);
+  color: var(--color-fg, #1f2937);
+}

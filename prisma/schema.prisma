@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Cat {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  species   String   @default("cat")
+  breed     String?
+  age       String?
+  sex       String?
+  publicBio String?
+  // status: "available" | "pending" | "adopted" | "not_listed"
+  status    String   @default("available")
+
+  intakeDate            DateTime?
+  behaviorNotes         String?
+  foodType              String?
+  foodPortion           String?
+  currentFosterParentId String?
+  currentFosterParent   FosterParent? @relation(fields: [currentFosterParentId], references: [id], onDelete: SetNull)
+
+  photos         CatPhoto[]
+  medicalRecords MedicalRecord[]
+  vetAppointments VetAppointment[]
+  medications    Medication[]
+  supplyRequests SupplyRequest[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CatPhoto {
+  id        String  @id @default(cuid())
+  catId     String
+  cat       Cat     @relation(fields: [catId], references: [id], onDelete: Cascade)
+  url       String
+  caption   String?
+  isPrimary Boolean @default(false)
+  createdAt DateTime @default(now())
+}
+
+model MedicalRecord {
+  id          String   @id @default(cuid())
+  catId       String
+  cat         Cat      @relation(fields: [catId], references: [id], onDelete: Cascade)
+  date        DateTime
+  type        String
+  description String
+  vetName     String?
+  createdAt   DateTime @default(now())
+}
+
+model VetAppointment {
+  id       String   @id @default(cuid())
+  catId    String
+  cat      Cat      @relation(fields: [catId], references: [id], onDelete: Cascade)
+  datetime DateTime
+  reason   String
+  location String?
+  // status: "scheduled" | "completed" | "cancelled"
+  status   String   @default("scheduled")
+  notes    String?
+  createdAt DateTime @default(now())
+}
+
+model Medication {
+  id        String    @id @default(cuid())
+  catId     String
+  cat       Cat       @relation(fields: [catId], references: [id], onDelete: Cascade)
+  name      String
+  dosage    String?
+  schedule  String?
+  startDate DateTime?
+  endDate   DateTime?
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+}
+
+model FosterParent {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  address   String?
+  notes     String?
+  cats      Cat[]
+  supplyRequests SupplyRequest[]
+  createdAt DateTime @default(now())
+}
+
+model StaffUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+}
+
+model FosterApplication {
+  id            String   @id @default(cuid())
+  applicantName String
+  email         String
+  phone         String?
+  address       String?
+  // answers: JSON string keyed by question IDs in org.config.ts
+  answers       String   @default("{}")
+  // status: "new" | "reviewing" | "approved" | "declined"
+  status        String   @default("new")
+  staffNotes    String?
+  createdAt     DateTime @default(now())
+}
+
+model SupplyRequest {
+  id             String        @id @default(cuid())
+  fosterParentId String?
+  fosterParent   FosterParent? @relation(fields: [fosterParentId], references: [id], onDelete: SetNull)
+  fosterNameText String?
+  catId          String?
+  cat            Cat?          @relation(fields: [catId], references: [id], onDelete: SetNull)
+  // items: JSON string — array of { type, quantity }
+  items          String        @default("[]")
+  notes          String?
+  // status: "new" | "in_progress" | "fulfilled"
+  status         String        @default("new")
+  createdAt      DateTime      @default(now())
+}
